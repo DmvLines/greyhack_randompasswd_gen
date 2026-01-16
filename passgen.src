@@ -3,26 +3,28 @@ c = {}
 c.green      = "<color=green>"
 c.endcolor   = "</color>"
 
+// Generate a random password with special characters
 get_password_random_special = function(length = 16)
     if typeof(length) != "number" then
         length = 16
     end if
 
-    if length < 1 then
+    if length < 1 then // Minimum length check
         return ""
     end if
 
-    chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+[]{}|;:,.<>?/"
+    chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+[]{}|;:,.<>?/" // Added special characters
     password = ""
 
-    for i in range(0, length - 1)
-        index = floor(rnd * chars.len)
-        password = password + chars[index]
+    for i in range(0, length - 1) // Loop to generate password
+        index = floor(rnd * chars.len) // Random index
+        password = password + chars[index] // Append character
     end for
 
     return password
 end function
 
+// Generate a random password without special characters
 get_password_random = function(length = 16)
     if typeof(length) != "number" then
         length = 16
@@ -32,7 +34,7 @@ get_password_random = function(length = 16)
         return ""
     end if
 
-    chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" // No special characters
     password = ""
 
     for i in range(0, length - 1)
@@ -43,6 +45,7 @@ get_password_random = function(length = 16)
     return password
 end function
 
+// Main function
 main = function
     wait(0.1)
     clear_screen
@@ -52,31 +55,32 @@ main = function
     print("====================")
     print("")
 
-    choice = user_input("Generate password with special characters? (y/n): ")
-    if choice == "y" or choice == "Y" then
-        length = user_input("Enter desired password length (minimum 8): ")
-        length_num = to_int(length)
-    else if choice == "n" or choice == "N" then
-        length = user_input("Enter desired password length (minimum 8): ")
-        length_num = to_int(length)
+    // User input for password generation
+    choice = user_input("Generate password with special characters? (y/n): ") // Ask user for special characters
+    if choice == "y" or choice == "Y" then // Yes special characters
+        length = user_input("Enter desired password length (minimum 8): ") // Ask for length
+        length_num = to_int(length) // Convert to integer
+    else if choice == "n" or choice == "N" then // No special characters
+        length = user_input("Enter desired password length (minimum 8): ") // Ask for length
+        length_num = to_int(length) // Convert to integer
     else
-        print("Invalid option.")
+        print("Invalid option.") // Invalid choice
         return
     end if
-    if length_num == null then
-        print("Invalid number entered.")
+    if length_num == null then // Check for valid number
+        print("Invalid number entered.") // Invalid number
         return
     end if
-    if length_num < 8 then
-        print("Password length must be at least 8.")
+    if length_num < 8 then // Minimum length check
+        print("Password length must be at least 8.") // Too short
         return
     end if
-    if choice == "y" or choice == "Y" then
-        password = get_password_random_special(length_num)
+    if choice == "y" or choice == "Y" then // Generate with special characters
+        password = get_password_random_special(length_num) // Generate password
     else
-        password = get_password_random(length_num)
+        password = get_password_random(length_num) // Generate password without special characters
     end if
-    print("Generated password: " + char(10) + c.green + password + c.endcolor)
+    print("Generated password: " + char(10) + c.green + password + c.endcolor) // Display password in green color
 end function
 
 main()
