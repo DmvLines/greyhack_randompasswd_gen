@@ -1,0 +1,82 @@
+// color
+c = {}
+c.green      = "<color=green>"
+c.endcolor   = "</color>"
+
+get_password_random_special = function(length = 16)
+    if typeof(length) != "number" then
+        length = 16
+    end if
+
+    if length < 1 then
+        return ""
+    end if
+
+    chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+[]{}|;:,.<>?/"
+    password = ""
+
+    for i in range(0, length - 1)
+        index = floor(rnd * chars.len)
+        password = password + chars[index]
+    end for
+
+    return password
+end function
+
+get_password_random = function(length = 16)
+    if typeof(length) != "number" then
+        length = 16
+    end if
+
+    if length < 1 then
+        return ""
+    end if
+
+    chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+    password = ""
+
+    for i in range(0, length - 1)
+        index = floor(rnd * chars.len)
+        password = password + chars[index]
+    end for
+
+    return password
+end function
+
+main = function
+    wait(0.1)
+    clear_screen
+    print("====================")
+    print("Password Generator")
+    print("Created by Dmv")
+    print("====================")
+    print("")
+
+    choice = user_input("Generate password with special characters? (y/n): ")
+    if choice == "y" or choice == "Y" then
+        length = user_input("Enter desired password length (minimum 8): ")
+        length_num = to_int(length)
+    else if choice == "n" or choice == "N" then
+        length = user_input("Enter desired password length (minimum 8): ")
+        length_num = to_int(length)
+    else
+        print("Invalid option.")
+        return
+    end if
+    if length_num == null then
+        print("Invalid number entered.")
+        return
+    end if
+    if length_num < 8 then
+        print("Password length must be at least 8.")
+        return
+    end if
+    if choice == "y" or choice == "Y" then
+        password = get_password_random_special(length_num)
+    else
+        password = get_password_random(length_num)
+    end if
+    print("Generated password: " + char(10) + c.green + password + c.endcolor)
+end function
+
+main()
