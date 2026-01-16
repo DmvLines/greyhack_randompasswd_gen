@@ -1,7 +1,15 @@
 // color
 c = {}
-c.green      = "<color=green>"
-c.endcolor   = "</color>"
+c.green     = "<color=green>"
+c.red       = "<color=red>"
+c.endcolor  = "</color>"
+
+banner = function()
+    print(c.red + "===================================" + c.endcolor)
+    print(c.red + "      GreyHack Password Generator  " + c.endcolor)
+    print(c.red + "            Created by Dmv         " + c.endcolor)
+    print(c.red + "===================================" + c.endcolor)
+end function
 
 // Generate a random password with special characters
 get_password_random_special = function(length = 16)
@@ -49,11 +57,7 @@ end function
 main = function
     wait(0.1)
     clear_screen
-    print("====================")
-    print("Password Generator")
-    print("Created by Dmv")
-    print("====================")
-    print("")
+    banner() // Display banner
 
     // User input for password generation
     choice = user_input("Generate password with special characters? (y/n): ") // Ask user for special characters
